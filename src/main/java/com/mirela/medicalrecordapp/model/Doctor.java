@@ -1,5 +1,6 @@
 package com.mirela.medicalrecordapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -37,6 +38,7 @@ public class Doctor extends BaseEntity {
 
     private String specialization;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<GeneralPractitioner> personalPatients;
 }

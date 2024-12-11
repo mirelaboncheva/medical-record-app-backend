@@ -1,11 +1,14 @@
 package com.mirela.medicalrecordapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Entity
 @Table(
@@ -36,6 +39,7 @@ public class Patient extends BaseEntity {
 
     private Boolean isHealthInsurancePaid;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "patient")
     private GeneralPractitioner generalPractitioner;
 }

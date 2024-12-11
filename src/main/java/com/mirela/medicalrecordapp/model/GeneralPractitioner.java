@@ -3,16 +3,20 @@ package com.mirela.medicalrecordapp.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(
-        name="general_practitioner_assignments",
+        name="gp_assignments",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"patient_id"})
         }
 )
+@Getter
+@Setter
 public class GeneralPractitioner extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "patient_id", nullable = false)

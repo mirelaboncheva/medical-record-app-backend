@@ -8,8 +8,7 @@ import lombok.Setter;
 @Table(name="treatment")
 @Getter
 @Setter
-public class Treatment extends BaseEntity{
-
+public class Treatment extends BaseEntity {
     private String medicine;
 
     private String dosage;
@@ -19,6 +18,6 @@ public class Treatment extends BaseEntity{
     private String doctorNotes;
 
     @ManyToOne
-    @JoinColumn(name = "appointment_id", nullable = false)
+    @JoinColumn(name = "appointment_id") //nullable = false)
     private Appointment appointment;
 }

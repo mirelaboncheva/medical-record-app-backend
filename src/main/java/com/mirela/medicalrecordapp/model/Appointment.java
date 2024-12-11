@@ -30,7 +30,7 @@ public class Appointment extends BaseEntity {
     private SickLeave sickLeave;
 
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
-    private List<Diagnosis> diagnoses; // List of diagnoses linked to this appointment
+    private List<Diagnosis> diagnoses;
 
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
     private List<Treatment> treatments;
