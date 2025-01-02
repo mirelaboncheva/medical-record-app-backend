@@ -25,6 +25,7 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
+    //TODO add phone attribute
     private String password;
     @Enumerated(EnumType.STRING)    private Role role;
 

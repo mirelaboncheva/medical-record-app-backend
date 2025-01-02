@@ -23,12 +23,22 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        Role role;
+        if (
+                request.getRole() == null
+                        || (!request.getRole().equalsIgnoreCase("DOCTOR")
+                        && !request.getRole().equalsIgnoreCase("PATIENT"))
+        ) {
+            throw new IllegalArgumentException("Invalid role specified");
+        }
+
+        role = Role.valueOf(request.getRole().toUpperCase());
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.ADMIN)
+                .role(role)
                 .build();
 
         userRepository.save(user);
