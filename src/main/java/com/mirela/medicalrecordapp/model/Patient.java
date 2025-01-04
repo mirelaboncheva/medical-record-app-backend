@@ -5,6 +5,7 @@ import com.mirela.medicalrecordapp.model.common.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,20 +23,15 @@ public class Patient extends BaseEntity {
     @NotNull
     private String nationalId;
 
-    @Column(nullable = false)
-    @NotNull
-    private String firstName;
-
-    @Column(nullable = false)
-    @NotNull
-    private String lastName;
-
+    @Size(max = 25)
     private String phoneNumber;
 
-    @Email(message = "Please provide a valid email address")
-    private String email;
-
+    @Column(nullable = false)
     private Boolean isHealthInsurancePaid;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 
     @JsonIgnore
     @OneToOne(mappedBy = "patient")

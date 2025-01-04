@@ -24,20 +24,13 @@ public class Doctor extends BaseEntity {
     @NotNull
     private String doctorUid;
 
-    @Column(nullable = false)
-    @NotNull
-    private String firstName;
-
-    @Column(nullable = false)
-    @NotNull
-    private String lastName;
-
     private String phoneNumber;
 
-    @Email(message = "Please provide a valid email address")
-    private String email;
-
     private String specialization;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 
     @JsonIgnore
     @OneToMany(mappedBy = "doctor")
