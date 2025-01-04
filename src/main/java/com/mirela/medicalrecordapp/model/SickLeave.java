@@ -1,6 +1,5 @@
 package com.mirela.medicalrecordapp.model;
 
-import com.mirela.medicalrecordapp.model.common.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +12,11 @@ import java.time.LocalDate;
 @Table(name = "sick_leave")
 @Getter
 @Setter
-public class SickLeave extends BaseEntity {
+public class SickLeave{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false)
     @NotNull
     private LocalDate startDate;

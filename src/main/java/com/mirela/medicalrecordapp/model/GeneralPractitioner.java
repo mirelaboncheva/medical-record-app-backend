@@ -1,6 +1,5 @@
 package com.mirela.medicalrecordapp.model;
 
-import com.mirela.medicalrecordapp.model.common.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +17,11 @@ import java.time.LocalDate;
 )
 @Getter
 @Setter
-public class GeneralPractitioner extends BaseEntity {
+public class GeneralPractitioner{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;

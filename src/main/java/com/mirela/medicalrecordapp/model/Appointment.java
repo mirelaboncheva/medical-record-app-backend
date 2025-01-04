@@ -1,6 +1,5 @@
 package com.mirela.medicalrecordapp.model;
 
-import com.mirela.medicalrecordapp.model.common.BaseEntity;
 import com.mirela.medicalrecordapp.model.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +9,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "appointment")
-public class Appointment extends BaseEntity {
+public class Appointment{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
