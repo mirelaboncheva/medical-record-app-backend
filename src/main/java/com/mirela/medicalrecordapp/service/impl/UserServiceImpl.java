@@ -1,7 +1,7 @@
 package com.mirela.medicalrecordapp.service.impl;
 
 import com.mirela.medicalrecordapp.dto.UserUpdateRequest;
-import com.mirela.medicalrecordapp.model.Role;
+import com.mirela.medicalrecordapp.model.enums.Role;
 import com.mirela.medicalrecordapp.dto.UserRequest;
 import com.mirela.medicalrecordapp.dto.UserResponse;
 import com.mirela.medicalrecordapp.mapper.UserMapper;

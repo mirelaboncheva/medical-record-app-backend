@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.mirela.medicalrecordapp.model.Role;
+import com.mirela.medicalrecordapp.model.enums.Role;
 
 @Data
 @Builder
