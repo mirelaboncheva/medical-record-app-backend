@@ -3,7 +3,7 @@ package com.mirela.medicalrecordapp.service;
 import com.mirela.medicalrecordapp.auth.AuthenticationRequest;
 import com.mirela.medicalrecordapp.auth.AuthenticationResponse;
 import com.mirela.medicalrecordapp.auth.RegisterRequest;
-import com.mirela.medicalrecordapp.model.Role;
+import com.mirela.medicalrecordapp.model.enums.Role;
 import com.mirela.medicalrecordapp.model.User;
 import com.mirela.medicalrecordapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
