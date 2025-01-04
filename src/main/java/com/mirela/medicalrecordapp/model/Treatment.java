@@ -1,6 +1,5 @@
 package com.mirela.medicalrecordapp.model;
 
-import com.mirela.medicalrecordapp.model.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +8,11 @@ import lombok.Setter;
 @Table(name="treatment")
 @Getter
 @Setter
-public class Treatment extends BaseEntity {
+public class Treatment{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String medicine;
 
     private String dosage;

@@ -1,9 +1,7 @@
 package com.mirela.medicalrecordapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mirela.medicalrecordapp.model.common.BaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +17,11 @@ import java.util.List;
 )
 @Getter
 @Setter
-public class Doctor extends BaseEntity {
+public class Doctor{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false)
     @NotNull
     private String doctorUid;

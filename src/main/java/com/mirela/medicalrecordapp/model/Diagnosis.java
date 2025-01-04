@@ -1,6 +1,5 @@
 package com.mirela.medicalrecordapp.model;
 
-import com.mirela.medicalrecordapp.model.common.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -10,7 +9,11 @@ import lombok.Setter;
 @Table(name="diagnosis")
 @Getter
 @Setter
-public class Diagnosis extends BaseEntity {
+public class Diagnosis{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false)
     @NotNull
     private String name;
