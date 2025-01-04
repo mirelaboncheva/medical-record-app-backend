@@ -18,7 +18,11 @@ import lombok.Setter;
 )
 @Getter
 @Setter
-public class Patient extends BaseEntity {
+public class Patient{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false)
     @NotNull
     private String nationalId;
