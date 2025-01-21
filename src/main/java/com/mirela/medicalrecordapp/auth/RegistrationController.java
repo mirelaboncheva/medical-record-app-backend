@@ -12,14 +12,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class AuthenticationController {
+public class RegistrationController {
 
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest) {
+        System.out.println("Received RegisterRequest: " + registerRequest);
         try {
-            AuthenticationResponse response = authenticationService.register(request);
+            AuthenticationResponse response = authenticationService.registerPatient(registerRequest);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/doctor")
+    public ResponseEntity<AuthenticationResponse> registerDoctor(@RequestBody DoctorRegisterRequest doctorRegisterRequest) {
+        System.out.println("Received RegisterRequest: " + doctorRegisterRequest);
+        try {
+            AuthenticationResponse response = authenticationService.registerDoctor(doctorRegisterRequest);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -27,7 +39,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request){
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }
