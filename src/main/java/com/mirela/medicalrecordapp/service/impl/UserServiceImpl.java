@@ -45,24 +45,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(UserRequest userRequest) {
         String roleString = userRequest.getRole().toString();
-        Role role;
-
-        if (
-                roleString == null
-                        || !(roleString.equalsIgnoreCase("DOCTOR")
-                        || roleString.equalsIgnoreCase("PATIENT"))
-        ) {
-            throw new IllegalArgumentException("Invalid role specified");
-        }
-
-        role = Role.valueOf(roleString.toUpperCase());
 
         var user = User.builder()
                 .firstName(userRequest.getFirstName())
                 .lastName(userRequest.getLastName())
                 .email(userRequest.getEmail())
                 .password(passwordEncoder.encode(userRequest.getPassword()))
-                .role(role)
+                .phoneNumber(userRequest.getPhoneNumber())
+                .role(Role.ADMIN)
                 .build();
 
         return userRepository.save(user);

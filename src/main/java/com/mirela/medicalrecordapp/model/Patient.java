@@ -3,15 +3,16 @@ package com.mirela.medicalrecordapp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(
         name = "patient",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"national_id", "phone_number", "email"})
+                @UniqueConstraint(columnNames = {"national_id"})
         }
 )
 @Getter
@@ -25,10 +26,7 @@ public class Patient{
     @NotNull
     private String nationalId;
 
-    @Size(max = 25)
-    private String phoneNumber;
-
-    @Column(nullable = false)
+    @Column
     private Boolean isHealthInsurancePaid;
 
     @OneToOne(cascade = CascadeType.ALL)

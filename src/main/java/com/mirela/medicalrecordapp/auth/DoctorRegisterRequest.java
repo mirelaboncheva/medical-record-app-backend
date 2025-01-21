@@ -1,20 +1,21 @@
-package com.mirela.medicalrecordapp.dto;
+package com.mirela.medicalrecordapp.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.mirela.medicalrecordapp.model.enums.Role;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequest {
+public class DoctorRegisterRequest {
+
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private String phoneNumber;
-    private Role role;
+    private String doctorUid;
+    private String specialization;
 }
