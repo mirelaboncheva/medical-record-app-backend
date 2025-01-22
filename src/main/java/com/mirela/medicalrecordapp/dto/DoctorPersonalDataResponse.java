@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatientRequest {
+public class DoctorPersonalDataResponse {
 
+    private String doctorUid;
+    private String specialization;
     private String firstName;
     private String lastName;
-    private String email;
-    private String password;
     private String phoneNumber;
-    private String nationalId;
 }

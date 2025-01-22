@@ -2,7 +2,6 @@ package com.mirela.medicalrecordapp.service.impl;
 
 import com.mirela.medicalrecordapp.dto.HealthInsuranceUpdateRequest;
 import com.mirela.medicalrecordapp.dto.PatientPersonalDataResponse;
-import com.mirela.medicalrecordapp.dto.PatientRequest;
 import com.mirela.medicalrecordapp.mapper.PatientMapper;
 import com.mirela.medicalrecordapp.model.Patient;
 import com.mirela.medicalrecordapp.repository.PatientRepository;
