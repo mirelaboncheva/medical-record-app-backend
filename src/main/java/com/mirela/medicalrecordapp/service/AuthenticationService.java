@@ -40,8 +40,6 @@ public class AuthenticationService {
                 .role(Role.PATIENT)
                 .build();
 
-        user = userRepository.save(user);
-
         var patient = Patient.builder()
                 .nationalId(registerRequest.getNationalId())
                 .user(user)
