@@ -35,5 +35,5 @@ public class Doctor {
 
     @JsonIgnore
     @OneToMany(mappedBy = "doctor")
-    private List<GeneralPractitioner> personalPatients;
+    private List<GPAssignment> personalPatients;
 }

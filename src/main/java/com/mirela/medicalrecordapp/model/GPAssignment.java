@@ -10,14 +10,14 @@ import java.time.LocalDate;
 
 @Entity
 @Table(
-        name="gp_assignments",
+        name="gp_assignment",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"patient_id"})
         }
 )
 @Getter
 @Setter
-public class GeneralPractitioner{
+public class GPAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
