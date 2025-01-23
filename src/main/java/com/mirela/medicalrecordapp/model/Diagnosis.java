@@ -16,11 +16,13 @@ public class Diagnosis{
 
     @Column(nullable = false)
     @NotNull
+    private String code;
+
+    @Column(nullable = false)
+    @NotNull
     private String name;
 
-    private String description;
-
     @ManyToOne
-    @JoinColumn(name = "appointment_id", nullable = false)
+    @JoinColumn(name = "appointment_id") //nullable = false ?
     private Appointment appointment;
 }

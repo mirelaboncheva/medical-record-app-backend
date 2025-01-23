@@ -23,6 +23,7 @@ public class GeneralPractitioner{
     private Long id;
 
     @OneToOne
+    @NotNull
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
@@ -35,7 +36,6 @@ public class GeneralPractitioner{
     private LocalDate registrationDate;
 
     @Column
-    @NotNull(message = "End date cannot be null")
     @Future(message = "End date must be in the future")
     private LocalDate deregistrationDate;
 }
