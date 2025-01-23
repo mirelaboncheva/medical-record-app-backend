@@ -1,9 +1,6 @@
 package com.mirela.medicalrecordapp.controller;
 
-import com.mirela.medicalrecordapp.dto.HealthInsuranceUpdateRequest;
-import com.mirela.medicalrecordapp.dto.PatientPersonalDataResponse;
 import com.mirela.medicalrecordapp.dto.TreatmentResponse;
-import com.mirela.medicalrecordapp.model.Patient;
 import com.mirela.medicalrecordapp.service.TreatmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
