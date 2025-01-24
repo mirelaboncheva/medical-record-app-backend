@@ -1,7 +1,7 @@
 package com.mirela.medicalrecordapp.mapper;
 
-import com.mirela.medicalrecordapp.dto.GPResponse;
-import com.mirela.medicalrecordapp.model.GPAssignment;
+import com.mirela.medicalrecordapp.dto.DoctorPatientAssignmentResponse;
+import com.mirela.medicalrecordapp.model.DoctorPatientAssignment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -10,9 +10,9 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper(componentModel = "string")
-public interface GPAssignmentMapper {
+public interface DoctorPatientAssignmentMapper {
 
-    GPAssignmentMapper INSTANCE = Mappers.getMapper(GPAssignmentMapper.class);
+    DoctorPatientAssignmentMapper INSTANCE = Mappers.getMapper(DoctorPatientAssignmentMapper.class);
 
     @Mappings({
             @Mapping(source = "patient.nationalId", target = "patientResponse.nationalId"),
@@ -23,7 +23,7 @@ public interface GPAssignmentMapper {
             @Mapping(source = "doctor.user.firstName", target = "doctorResponse.userData.firstName"),
             @Mapping(source = "doctor.user.lastName", target = "doctorResponse.userData.lastName"),
     })
-    GPResponse toDTO(GPAssignment gpAssignment);
+    DoctorPatientAssignmentResponse toDTO(DoctorPatientAssignment doctorPatientAssignment);
 
-    List<GPResponse> toDTOList(List<GPAssignment> gpAssignments);
+    List<DoctorPatientAssignmentResponse> toDTOList(List<DoctorPatientAssignment> doctorPatientAssignments);
 }

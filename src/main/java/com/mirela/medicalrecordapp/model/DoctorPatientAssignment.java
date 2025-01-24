@@ -17,7 +17,7 @@ import java.time.LocalDate;
 )
 @Getter
 @Setter
-public class GPAssignment {
+public class DoctorPatientAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

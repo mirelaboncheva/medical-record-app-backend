@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GPResponse {
+public class DoctorPatientAssignmentResponse {
 
     private PatientResponse patientResponse;
     private DoctorResponse doctorResponse;
