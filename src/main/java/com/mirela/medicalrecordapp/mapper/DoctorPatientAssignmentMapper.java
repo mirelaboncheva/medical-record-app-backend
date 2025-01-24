@@ -1,7 +1,6 @@
 package com.mirela.medicalrecordapp.mapper;
 
 import com.mirela.medicalrecordapp.dto.DoctorPatientAssignmentResponse;
-import com.mirela.medicalrecordapp.dto.DoctorPatientCountResponse;
 import com.mirela.medicalrecordapp.dto.DoctorResponse;
 import com.mirela.medicalrecordapp.model.Doctor;
 import com.mirela.medicalrecordapp.model.DoctorPatientAssignment;
@@ -12,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "string")
+@Mapper(componentModel = "spring")
 public interface DoctorPatientAssignmentMapper {
 
     DoctorPatientAssignmentMapper INSTANCE = Mappers.getMapper(DoctorPatientAssignmentMapper.class);
@@ -24,11 +23,15 @@ public interface DoctorPatientAssignmentMapper {
             @Mapping(source = "patient.user.lastName", target = "patientResponse.userData.lastName"),
             @Mapping(source = "doctor.doctorUid", target = "doctorResponse.doctorUid"),
             @Mapping(source = "doctor.user.firstName", target = "doctorResponse.userData.firstName"),
-            @Mapping(source = "doctor.user.lastName", target = "doctorResponse.userData.lastName"),
+            @Mapping(source = "doctor.user.lastName", target = "doctorResponse.userData.lastName")
     })
     DoctorPatientAssignmentResponse toDTO(DoctorPatientAssignment doctorPatientAssignment);
 
     List<DoctorPatientAssignmentResponse> toDTOList(List<DoctorPatientAssignment> doctorPatientAssignments);
 
+    @Mappings({
+            @Mapping(source = "doctorUid", target = "doctorUid"),
+            @Mapping(source = "user", target = "userData", defaultExpression = "java(new UserDataResponse())")
+    })
     DoctorResponse toDoctorResponse(Doctor doctor);
 }
