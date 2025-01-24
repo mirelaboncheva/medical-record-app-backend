@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(
-        name="gp_assignment",
+        name="doctor_patient_assignment",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"patient_id"})
         }

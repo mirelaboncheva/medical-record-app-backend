@@ -1,6 +1,9 @@
 package com.mirela.medicalrecordapp.mapper;
 
 import com.mirela.medicalrecordapp.dto.DoctorPatientAssignmentResponse;
+import com.mirela.medicalrecordapp.dto.DoctorPatientCountResponse;
+import com.mirela.medicalrecordapp.dto.DoctorResponse;
+import com.mirela.medicalrecordapp.model.Doctor;
 import com.mirela.medicalrecordapp.model.DoctorPatientAssignment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,4 +29,6 @@ public interface DoctorPatientAssignmentMapper {
     DoctorPatientAssignmentResponse toDTO(DoctorPatientAssignment doctorPatientAssignment);
 
     List<DoctorPatientAssignmentResponse> toDTOList(List<DoctorPatientAssignment> doctorPatientAssignments);
+
+    DoctorResponse toDoctorResponse(Doctor doctor);
 }
