@@ -1,10 +1,12 @@
 package com.mirela.medicalrecordapp.service.impl;
 
+import com.mirela.medicalrecordapp.dto.DiagnosisRequest;
 import com.mirela.medicalrecordapp.dto.DiagnosisResponse;
 import com.mirela.medicalrecordapp.mapper.DiagnosisMapper;
 import com.mirela.medicalrecordapp.model.Diagnosis;
 import com.mirela.medicalrecordapp.repository.DiagnosisRepository;
 import com.mirela.medicalrecordapp.service.DiagnosisService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,23 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         return diagnosisRepository.findByName(name)
                 .map(diagnosisMapper::toDTO)
                 .orElse(null); //TODO
+    }
+
+    @Override
+    public Diagnosis saveDiagnosis(DiagnosisRequest diagnosisRequest) {
+        var diagnosis = Diagnosis.builder()
+                .name(diagnosisRequest.getName())
+                .build();
+
+        return diagnosisRepository.save(diagnosis);
+    }
+
+    @Override
+    public Diagnosis updateDiagnosis(Long id, DiagnosisRequest diagnosisRequest) {
+        Diagnosis existingDiagnosis = diagnosisRepository.findById(id).orElse(null);
+
+        existingDiagnosis.setName(diagnosisRequest.getName());
+        return diagnosisRepository.save(existingDiagnosis);
     }
 
     @Override

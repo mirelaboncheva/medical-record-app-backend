@@ -4,6 +4,7 @@ import com.mirela.medicalrecordapp.dto.DoctorPatientAssignmentResponse;
 import com.mirela.medicalrecordapp.dto.DoctorPatientCountResponse;
 import com.mirela.medicalrecordapp.dto.PatientResponse;
 import com.mirela.medicalrecordapp.mapper.DoctorPatientAssignmentMapper;
+import com.mirela.medicalrecordapp.mapper.UserMapper;
 import com.mirela.medicalrecordapp.model.Doctor;
 import com.mirela.medicalrecordapp.model.DoctorPatientAssignment;
 import com.mirela.medicalrecordapp.repository.DoctorPatientAssignmentRepository;
@@ -20,6 +21,7 @@ public class DoctorPatientAssignmentServiceImpl implements DoctorPatientAssignme
 
     private final DoctorPatientAssignmentRepository doctorPatientAssignmentRepository;
     private final DoctorPatientAssignmentMapper doctorPatientAssignmentMapper;
+    private final UserMapper userMapper;
 
 
     @Override
@@ -49,7 +51,7 @@ public class DoctorPatientAssignmentServiceImpl implements DoctorPatientAssignme
         List<Object[]> results = doctorPatientAssignmentRepository.countPatientsPerDoctor();
         return results.stream()
                 .map(result -> DoctorPatientCountResponse.builder()
-                        .doctorResponse(doctorPatientAssignmentMapper.toDoctorResponse((Doctor) result[0]))
+                        .doctorResponse(userMapper.toDoctorResponse((Doctor) result[0]))
                         .patientCount((Long) result[1])
                         .build())
                 .collect(Collectors.toList());

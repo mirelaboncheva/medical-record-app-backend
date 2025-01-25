@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @Entity
 @Table(
         name="doctor_patient_assignment",
@@ -15,8 +17,6 @@ import java.time.LocalDate;
                 @UniqueConstraint(columnNames = {"patient_id"})
         }
 )
-@Getter
-@Setter
 public class DoctorPatientAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

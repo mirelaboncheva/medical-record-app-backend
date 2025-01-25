@@ -2,21 +2,19 @@ package com.mirela.medicalrecordapp.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
-@Table(name="diagnosis")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name="diagnosis")
 public class Diagnosis{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    @NotNull
-    private String code;
 
     @Column(nullable = false)
     @NotNull

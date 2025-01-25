@@ -5,14 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SickLeaveResponse {
+public class TreatmentDTO {
 
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String medicine;
+    private String dosage;
+    private String duration;
+    private String doctorNotes;
 }

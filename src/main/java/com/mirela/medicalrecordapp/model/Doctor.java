@@ -6,18 +6,18 @@ import lombok.*;
 
 import java.util.List;
 
-@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Entity
 @Table(
         name = "doctor",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"doctor_uid"})
         }
 )
-@Getter
-@Setter
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

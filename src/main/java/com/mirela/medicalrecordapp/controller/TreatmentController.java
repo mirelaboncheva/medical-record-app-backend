@@ -1,6 +1,10 @@
 package com.mirela.medicalrecordapp.controller;
 
-import com.mirela.medicalrecordapp.dto.TreatmentResponse;
+import com.mirela.medicalrecordapp.dto.SickLeaveDTO;
+import com.mirela.medicalrecordapp.dto.SickLeaveUpdateRequest;
+import com.mirela.medicalrecordapp.dto.TreatmentDTO;
+import com.mirela.medicalrecordapp.model.SickLeave;
+import com.mirela.medicalrecordapp.model.Treatment;
 import com.mirela.medicalrecordapp.service.TreatmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,15 +21,27 @@ public class TreatmentController {
     private final TreatmentService treatmentService;
 
     @GetMapping
-    public ResponseEntity<List<TreatmentResponse>> getTreatments() {
+    public ResponseEntity<List<TreatmentDTO>> getTreatments() {
         return ResponseEntity.ok(treatmentService.getTreatments());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TreatmentResponse> getTreatmentById(@PathVariable Long id) {
+    public ResponseEntity<TreatmentDTO> getTreatmentById(@PathVariable Long id) {
         return ResponseEntity.ok(treatmentService.getTreatmentById(id));
     }
 
+    @PostMapping
+    public ResponseEntity<Treatment> saveTreatment(@RequestBody TreatmentDTO treatmentDTO) {
+        Treatment savedTreatment = treatmentService.saveTreatment(treatmentDTO);
+        return new ResponseEntity<>(savedTreatment, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Treatment> updateTreatment(
+            @PathVariable Long id,
+            @RequestBody TreatmentDTO treatmentDTO) {
+        return ResponseEntity.ok(treatmentService.updateTreatment(id, treatmentDTO));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTreatmentById(@PathVariable Long id) {

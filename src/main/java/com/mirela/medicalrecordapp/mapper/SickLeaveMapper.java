@@ -1,6 +1,6 @@
 package com.mirela.medicalrecordapp.mapper;
 
-import com.mirela.medicalrecordapp.dto.SickLeaveResponse;
+import com.mirela.medicalrecordapp.dto.SickLeaveDTO;
 import com.mirela.medicalrecordapp.model.SickLeave;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -12,6 +12,6 @@ public interface SickLeaveMapper {
 
     SickLeaveMapper INSTANCE = Mappers.getMapper(SickLeaveMapper.class);
 
-    SickLeaveResponse toDTO(SickLeave sickLeave);
-    List<SickLeaveResponse> toDTOList(List<SickLeave> sickLeaves);
+    SickLeaveDTO toDTO(SickLeave sickLeave);
+    List<SickLeaveDTO> toDTOList(List<SickLeave> sickLeaves);
 }
