@@ -1,9 +1,6 @@
 package com.mirela.medicalrecordapp.controller;
 
-import com.mirela.medicalrecordapp.dto.SickLeaveDTO;
-import com.mirela.medicalrecordapp.dto.SickLeaveUpdateRequest;
 import com.mirela.medicalrecordapp.dto.TreatmentDTO;
-import com.mirela.medicalrecordapp.model.SickLeave;
 import com.mirela.medicalrecordapp.model.Treatment;
 import com.mirela.medicalrecordapp.service.TreatmentService;
 import lombok.RequiredArgsConstructor;

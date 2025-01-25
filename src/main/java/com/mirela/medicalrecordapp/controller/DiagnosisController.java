@@ -2,10 +2,7 @@ package com.mirela.medicalrecordapp.controller;
 
 import com.mirela.medicalrecordapp.dto.DiagnosisRequest;
 import com.mirela.medicalrecordapp.dto.DiagnosisResponse;
-import com.mirela.medicalrecordapp.dto.UserRequest;
-import com.mirela.medicalrecordapp.dto.UserUpdateRequest;
 import com.mirela.medicalrecordapp.model.Diagnosis;
-import com.mirela.medicalrecordapp.model.User;
 import com.mirela.medicalrecordapp.service.DiagnosisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,9 +1,7 @@
 package com.mirela.medicalrecordapp.mapper;
 
 import com.mirela.medicalrecordapp.dto.DiagnosisResponse;
-import com.mirela.medicalrecordapp.dto.PatientPersonalDataResponse;
 import com.mirela.medicalrecordapp.model.Diagnosis;
-import com.mirela.medicalrecordapp.model.Patient;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

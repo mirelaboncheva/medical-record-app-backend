@@ -6,7 +6,6 @@ import com.mirela.medicalrecordapp.mapper.DiagnosisMapper;
 import com.mirela.medicalrecordapp.model.Diagnosis;
 import com.mirela.medicalrecordapp.repository.DiagnosisRepository;
 import com.mirela.medicalrecordapp.service.DiagnosisService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

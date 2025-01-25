@@ -1,6 +1,5 @@
 package com.mirela.medicalrecordapp.dto;
 
-import com.mirela.medicalrecordapp.model.Doctor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

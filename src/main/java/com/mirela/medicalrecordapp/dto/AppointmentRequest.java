@@ -20,5 +20,5 @@ public class AppointmentRequest {
     private Integer durationInMinutes;
     private Status status;
     private Long doctorId;
-
+    private Long patientId;
 }

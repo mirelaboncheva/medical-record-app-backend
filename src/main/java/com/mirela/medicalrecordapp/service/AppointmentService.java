@@ -9,7 +9,5 @@ public interface AppointmentService {
     AppointmentResponse getAppointmentById(Long id);
     List<AppointmentResponse> getAppointmentsByDoctorId(Long doctorId);
     List<AppointmentResponse> getAppointmentsByPatientId(Long patientId);
-//    Appointment saveAppointment(AppointmentRequest appointmentRequest);
-//    Appointment updateAppointment(Long id, AppointmentUpdateRequest appointmentUpdateRequest);
     void deleteAppointment(Long id);
 }

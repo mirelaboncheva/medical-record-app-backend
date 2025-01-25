@@ -8,7 +8,6 @@ import com.mirela.medicalrecordapp.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 
 @Service
@@ -42,16 +41,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<Appointment> appointments = appointmentRepository.findByPatientId(patientId);
         return appointmentMapper.toDTOList(appointments);
     }
-
-//    @Override
-//    public Appointment saveAppointment(AppointmentRequest appointmentRequest) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Appointment updateAppointment(Long id, AppointmentUpdateRequest appointmentUpdateRequest) {
-//        return null;
-//    }
 
     @Override
     public void deleteAppointment(Long id) {
