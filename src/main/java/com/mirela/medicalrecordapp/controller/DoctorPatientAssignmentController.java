@@ -1,8 +1,10 @@
 package com.mirela.medicalrecordapp.controller;
 
+import com.mirela.medicalrecordapp.dto.AssignPatientDoctorRequest;
 import com.mirela.medicalrecordapp.dto.DoctorPatientAssignmentResponse;
 import com.mirela.medicalrecordapp.dto.DoctorPatientCountResponse;
 import com.mirela.medicalrecordapp.dto.PatientResponse;
+import com.mirela.medicalrecordapp.model.DoctorPatientAssignment;
 import com.mirela.medicalrecordapp.service.DoctorPatientAssignmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,12 @@ public class DoctorPatientAssignmentController {
     public ResponseEntity<List<DoctorPatientCountResponse>> getDoctorPatientCounts() {
         List<DoctorPatientCountResponse> response = doctorPatientAssignmentService.getDoctorPatientCounts();
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    public ResponseEntity<DoctorPatientAssignment> saveDoctorPatientAssignment(AssignPatientDoctorRequest request){
+        DoctorPatientAssignment assignment = doctorPatientAssignmentService.saveAssignment(request);
+        return new ResponseEntity<>(assignment,  HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
