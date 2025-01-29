@@ -1,7 +1,7 @@
 package com.mirela.medicalrecordapp.service.impl;
 
 import com.mirela.medicalrecordapp.dto.HealthInsuranceUpdateRequest;
-import com.mirela.medicalrecordapp.dto.PatientPersonalDataResponse;
+import com.mirela.medicalrecordapp.dto.PatientResponse;
 import com.mirela.medicalrecordapp.mapper.PatientMapper;
 import com.mirela.medicalrecordapp.model.Patient;
 import com.mirela.medicalrecordapp.repository.PatientRepository;
@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,15 +21,17 @@ public class PatientServiceImpl implements PatientService {
 
 
     @Override
-    public List<PatientPersonalDataResponse> getPatients() {
+    public List<PatientResponse> getPatients() {
         List<Patient> patients = patientRepository.findAll();
-        return patientMapper.toDTOList(patients);
+        return patients.stream()
+                .map(patientMapper::toPatientResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public PatientPersonalDataResponse getPatientById(Long id) {
+    public PatientResponse getPatientById(Long id) {
         return patientRepository.findById(id)
-                .map(patientMapper::toDTO)
+                .map(patientMapper::toPatientResponse)
                 .orElse(null);
     }
 

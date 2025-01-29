@@ -1,5 +1,6 @@
 package com.mirela.medicalrecordapp.mapper;
 
+import com.mirela.medicalrecordapp.dto.AppointmentRequest;
 import com.mirela.medicalrecordapp.dto.AppointmentResponse;
 import com.mirela.medicalrecordapp.model.Appointment;
 import org.mapstruct.Mapper;
@@ -26,4 +27,10 @@ public interface AppointmentMapper {
     AppointmentResponse toDTO(Appointment appointment);
 
     List<AppointmentResponse> toDTOList(List<Appointment> appointments);
+
+    @Mappings({
+            @Mapping(source = "patientId", target = "patient.id"),
+            @Mapping(source = "doctorId", target = "doctor.id")
+    })
+    Appointment toEntity(AppointmentRequest appointmentRequest);
 }

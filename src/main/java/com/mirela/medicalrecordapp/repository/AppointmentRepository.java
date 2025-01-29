@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findByDoctorId(Long doctorId);
@@ -22,4 +24,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     @Query("SELECT a.doctor.id, COUNT(sl.id) FROM Appointment a LEFT JOIN a.sickLeave sl WHERE sl IS NOT NULL GROUP BY a.doctor.id ORDER BY COUNT(sl.id) DESC")
     List<Object[]> getDoctorWithMostSickLeaves();
+
+    List<Appointment> findByDoctorIdAndAppointmentDate(Long doctorId, LocalDate appointmentDate);
+    List<Appointment> findByPatientIdAndAppointmentDate(Long patientId, LocalDate appointmentDate);
 }

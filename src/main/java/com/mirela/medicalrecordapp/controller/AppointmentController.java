@@ -1,9 +1,11 @@
 package com.mirela.medicalrecordapp.controller;
 
+import com.mirela.medicalrecordapp.dto.AppointmentRequest;
 import com.mirela.medicalrecordapp.dto.AppointmentResponse;
 import com.mirela.medicalrecordapp.model.Patient;
 import com.mirela.medicalrecordapp.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +57,20 @@ public class AppointmentController {
     @GetMapping("/doctor/sick-leaves")
     public ResponseEntity<List<Map<String, Object>>> getDoctorsWithMostSickLeaves() {
         return ResponseEntity.ok(appointmentService.getDoctorWithMostSickLeaves());
+    }
+
+    @PostMapping
+    public ResponseEntity<AppointmentResponse> saveAppointment(@RequestBody AppointmentRequest appointmentRequest) {
+        AppointmentResponse savedAppointment = appointmentService.saveAppointment(appointmentRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAppointment);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AppointmentResponse> updateAppointment(
+            @PathVariable Long id,
+            @RequestBody AppointmentRequest appointmentRequest) {
+        AppointmentResponse updatedAppointment = appointmentService.updateAppointment(id, appointmentRequest);
+        return ResponseEntity.ok(updatedAppointment);
     }
 
     @DeleteMapping("/{id}")
