@@ -3,10 +3,18 @@ package com.mirela.medicalrecordapp.model;
 import com.mirela.medicalrecordapp.model.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "appointment")
 public class Appointment{
@@ -25,6 +33,14 @@ public class Appointment{
     @Column(nullable = false)
     @NotNull
     private LocalDate appointmentDate;
+
+    @Column(nullable = false)
+    @NotNull
+    private LocalTime appointmentHour;
+
+    @Column(nullable = false)
+    @NotNull
+    private Duration duration;
 
     @Column(nullable = false)
     @NotNull

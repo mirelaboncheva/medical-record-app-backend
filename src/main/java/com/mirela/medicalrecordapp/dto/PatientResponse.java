@@ -9,12 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatientRequest {
+public class PatientResponse {
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String phoneNumber;
     private String nationalId;
+    private Boolean isHealthInsurancePaid;
+    private UserDataResponse userData;
 }

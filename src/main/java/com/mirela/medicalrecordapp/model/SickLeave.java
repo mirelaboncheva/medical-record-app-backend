@@ -3,15 +3,17 @@ package com.mirela.medicalrecordapp.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "sick_leave")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "sick_leave")
 public class SickLeave{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

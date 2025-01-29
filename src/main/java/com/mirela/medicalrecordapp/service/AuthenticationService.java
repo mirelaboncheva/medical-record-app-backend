@@ -26,7 +26,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse registerPatient (RegisterRequest registerRequest){
+    public AuthenticationResponse registerPatient(RegisterRequest registerRequest) {
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
             throw new IllegalArgumentException("Email already in use");
         }
@@ -51,13 +51,14 @@ public class AuthenticationService {
             System.err.println("Error saving patient: " + e.getMessage());
             throw new RuntimeException("Failed to register patient");
         }
-        var jwtToken = jwtService.generateToken(user);
+
+        var jwtToken = jwtService.generateToken(user, user.getRole().name());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
 
-    public AuthenticationResponse registerDoctor (DoctorRegisterRequest doctorRegisterRequest){
+    public AuthenticationResponse registerDoctor(DoctorRegisterRequest doctorRegisterRequest) {
         if (userRepository.existsByEmail(doctorRegisterRequest.getEmail())) {
             throw new IllegalArgumentException("Email already in use");
         }
@@ -83,7 +84,9 @@ public class AuthenticationService {
             System.err.println("Error saving doctor: " + e.getMessage());
             throw new RuntimeException("Failed to register doctor");
         }
-        var jwtToken = jwtService.generateToken(user);
+
+        // Generate token with role
+        var jwtToken = jwtService.generateToken(user, user.getRole().name());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -93,11 +96,14 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
-                        request.getPassword())
+                        request.getPassword()
+                )
         );
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        var jwtToken = jwtService.generateToken(user);
+
+        // Generate token with role
+        var jwtToken = jwtService.generateToken(user, user.getRole().name());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();

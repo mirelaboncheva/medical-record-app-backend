@@ -2,13 +2,15 @@ package com.mirela.medicalrecordapp.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
-@Table(name="diagnosis")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name="diagnosis")
 public class Diagnosis{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +20,7 @@ public class Diagnosis{
     @NotNull
     private String name;
 
-    private String description;
-
     @ManyToOne
-    @JoinColumn(name = "appointment_id", nullable = false)
+    @JoinColumn(name = "appointment_id") //nullable = false ?
     private Appointment appointment;
 }

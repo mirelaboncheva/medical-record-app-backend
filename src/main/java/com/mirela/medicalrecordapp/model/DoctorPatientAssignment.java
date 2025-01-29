@@ -3,26 +3,29 @@ package com.mirela.medicalrecordapp.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(
-        name="gp_assignments",
+        name="doctor_patient_assignment",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"patient_id"})
         }
 )
-@Getter
-@Setter
-public class GeneralPractitioner{
+public class DoctorPatientAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
+    @NotNull
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
@@ -35,7 +38,6 @@ public class GeneralPractitioner{
     private LocalDate registrationDate;
 
     @Column
-    @NotNull(message = "End date cannot be null")
     @Future(message = "End date must be in the future")
     private LocalDate deregistrationDate;
 }

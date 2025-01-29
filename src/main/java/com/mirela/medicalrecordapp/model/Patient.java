@@ -5,18 +5,18 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Entity
 @Table(
         name = "patient",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"national_id"})
         }
 )
-@Getter
-@Setter
 public class Patient{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,5 +35,5 @@ public class Patient{
 
     @JsonIgnore
     @OneToOne(mappedBy = "patient")
-    private GeneralPractitioner generalPractitioner;
+    private DoctorPatientAssignment DoctorPatientAssignment;
 }
