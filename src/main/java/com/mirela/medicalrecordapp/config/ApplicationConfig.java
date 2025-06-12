@@ -55,7 +55,7 @@ public class ApplicationConfig {
 
         config.setAllowCredentials(true);
 
-        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("http://localhost:5173");
 
         config.setAllowedHeaders(Arrays.asList(
                 "Origin",
