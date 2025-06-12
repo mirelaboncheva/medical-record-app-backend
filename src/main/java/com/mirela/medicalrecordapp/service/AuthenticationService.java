@@ -52,7 +52,7 @@ public class AuthenticationService {
             throw new RuntimeException("Failed to register patient");
         }
 
-        var jwtToken = jwtService.generateToken(user, user.getRole().name());
+        var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -86,7 +86,7 @@ public class AuthenticationService {
         }
 
         // Generate token with role
-        var jwtToken = jwtService.generateToken(user, user.getRole().name());
+        var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -103,7 +103,7 @@ public class AuthenticationService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         // Generate token with role
-        var jwtToken = jwtService.generateToken(user, user.getRole().name());
+        var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
