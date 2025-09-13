@@ -2,6 +2,7 @@ package com.mirela.medicalrecordapp.mapper;
 
 import com.mirela.medicalrecordapp.dto.AppointmentRequest;
 import com.mirela.medicalrecordapp.dto.AppointmentResponse;
+import com.mirela.medicalrecordapp.dto.admin.AppointmentDto;
 import com.mirela.medicalrecordapp.model.Appointment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -33,4 +34,14 @@ public interface AppointmentMapper {
             @Mapping(source = "doctorId", target = "doctor.id")
     })
     Appointment toEntity(AppointmentRequest appointmentRequest);
+
+    @Mapping(target = "appointmentId", source = "id")
+    @Mapping(target = "patientId", source = "patient.id")
+    @Mapping(target = "patientName",
+            expression = "java(a.getPatient().getUser().getFirstName() + \" \" + a.getPatient().getUser().getLastName())")
+    @Mapping(target = "doctorId", source = "doctor.id")
+    @Mapping(target = "doctorName",
+            expression = "java(a.getDoctor().getUser().getFirstName() + \" \" + a.getDoctor().getUser().getLastName())")
+    @Mapping(target = "specialization", source = "doctor.specialization")
+    AppointmentDto toDto(Appointment a);
 }

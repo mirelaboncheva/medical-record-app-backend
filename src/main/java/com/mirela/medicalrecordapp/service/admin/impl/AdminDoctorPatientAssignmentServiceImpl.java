@@ -15,6 +15,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -54,6 +55,7 @@ public class AdminDoctorPatientAssignmentServiceImpl implements AdminDoctorPatie
         return mapper.toDto(assignment);
     }
 
+    @Transactional
     @PreAuthorize("hasRole('ADMIN')")
     public DoctorPatientAssignmentResponseDto updateAssignment(Long id, UpdateDoctorPatientAssignmentRequestDto dto) {
         DoctorPatientAssignment assignment = assignmentRepository.findById(id)
@@ -69,7 +71,6 @@ public class AdminDoctorPatientAssignmentServiceImpl implements AdminDoctorPatie
             assignment.setDeregistrationDate(dto.getDeregistrationDate());
         }
 
-        assignmentRepository.save(assignment);
         return mapper.toDto(assignment);
     }
 

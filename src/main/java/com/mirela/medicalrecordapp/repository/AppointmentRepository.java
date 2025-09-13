@@ -2,6 +2,7 @@ package com.mirela.medicalrecordapp.repository;
 
 import com.mirela.medicalrecordapp.model.Appointment;
 import com.mirela.medicalrecordapp.model.Patient;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +12,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
+    @EntityGraph(attributePaths = {"patient.user", "doctor.user"})
+    List<Appointment> findAll();
+
     List<Appointment> findByDoctorId(Long doctorId);
     List<Appointment> findByPatientId(Long patientId);
     @Query("SELECT a.patient FROM Appointment a JOIN a.diagnoses d WHERE d.name = :diagnose")
