@@ -14,9 +14,11 @@ import com.mirela.medicalrecordapp.repository.DoctorRepository;
 import com.mirela.medicalrecordapp.repository.PatientRepository;
 import com.mirela.medicalrecordapp.repository.UserRepository;
 import com.mirela.medicalrecordapp.service.admin.AdminPatientService;
+import com.mirela.medicalrecordapp.util.PasswordGenerator;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,6 +33,7 @@ public class AdminPatientServiceImpl implements AdminPatientService {
     private final DoctorRepository doctorRepository;
     private final DoctorPatientAssignmentRepository assignmentRepository;
     private final PatientMapper patientMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @PreAuthorize("hasRole('ADMIN')")
     public List<ManagePatientDto> getAllPatients() {
@@ -49,6 +52,9 @@ public class AdminPatientServiceImpl implements AdminPatientService {
 
     @PreAuthorize("hasRole('ADMIN')")
     public ManagePatientDto createPatient(CreatePatientRequestDto dto) {
+        String rawPassword = PasswordGenerator.generateSimplePassword();
+        String hashedPassword = passwordEncoder.encode(rawPassword);
+
         // Create User
         User user = new User();
         user.setFirstName(dto.getFirstName());
@@ -56,7 +62,7 @@ public class AdminPatientServiceImpl implements AdminPatientService {
         user.setEmail(dto.getEmail());
         user.setPhoneNumber(dto.getPhoneNumber());
         user.setRole(Role.PATIENT);
-        // TODO: set password (generate or accept from dto)
+        user.setPassword(hashedPassword);
         userRepository.save(user);
 
         // Create Patient
