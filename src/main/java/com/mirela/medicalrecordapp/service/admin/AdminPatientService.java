@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface AdminPatientService {
 
-    public List<ManagePatientDto> getAllPatients();
-    public ManagePatientDto getPatientById(Long id);
-    public ManagePatientDto createPatient(CreatePatientRequestDto dto);
-    public ManagePatientDto updatePatient(Long id, UpdatePatientRequestDto dto);
-    public void deletePatient(Long id);
+    List<ManagePatientDto> getAllPatients();
+    ManagePatientDto getPatientById(Long id);
+    ManagePatientDto createPatient(CreatePatientRequestDto dto);
+    ManagePatientDto updatePatient(Long id, UpdatePatientRequestDto dto);
+    void deletePatient(Long id);
 }
