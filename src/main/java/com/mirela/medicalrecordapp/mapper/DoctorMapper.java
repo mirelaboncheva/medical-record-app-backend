@@ -2,6 +2,7 @@ package com.mirela.medicalrecordapp.mapper;
 
 import com.mirela.medicalrecordapp.dto.DoctorPersonalDataResponse;
 import com.mirela.medicalrecordapp.dto.admin.ManageDoctorDto;
+import com.mirela.medicalrecordapp.dto.patient.MyDiagnosisDto;
 import com.mirela.medicalrecordapp.model.Doctor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -33,4 +34,5 @@ public interface DoctorMapper {
     @Mapping(target = "specialization", source = "specialization")
     @Mapping(target = "assignedPatientsCount", expression = "java(doctor.getPersonalPatients() != null ? doctor.getPersonalPatients().size() : 0)")
     ManageDoctorDto toManageDto(Doctor doctor);
+
 }

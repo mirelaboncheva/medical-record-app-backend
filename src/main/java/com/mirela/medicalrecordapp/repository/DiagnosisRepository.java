@@ -12,4 +12,10 @@ public interface DiagnosisRepository extends JpaRepository<Diagnosis, Long> {
 
     @EntityGraph(attributePaths = {"appointment.patient.user", "appointment.doctor.user"})
     List<Diagnosis> findAll();
+
+    @EntityGraph(attributePaths = {
+            "appointment.doctor.user",
+            "appointment.patient"
+    })
+    List<Diagnosis> findByAppointmentPatientIdOrderByAppointmentAppointmentDateDesc(Long patientId);
 }

@@ -2,6 +2,7 @@ package com.mirela.medicalrecordapp.mapper;
 
 import com.mirela.medicalrecordapp.dto.DiagnosisResponse;
 import com.mirela.medicalrecordapp.dto.admin.DiagnosisDto;
+import com.mirela.medicalrecordapp.dto.patient.MyDiagnosisDto;
 import com.mirela.medicalrecordapp.model.Diagnosis;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -28,4 +29,9 @@ public interface DiagnosisMapper {
             expression = "java(d.getAppointment().getDoctor().getUser().getFirstName() + \" \" + d.getAppointment().getDoctor().getUser().getLastName())")
     @Mapping(target = "specialization", source = "appointment.doctor.specialization")
     DiagnosisDto toDto(Diagnosis d);
+
+    @Mapping(target = "appointmentDate", source = "appointment.appointmentDate")
+    @Mapping(target = "doctorName", expression = "java(d.getAppointment().getDoctor().getUser().getFirstName() + \" \" + d.getAppointment().getDoctor().getUser().getLastName())")
+    @Mapping(target = "specialization", source = "appointment.doctor.specialization")
+    MyDiagnosisDto toDTo(Diagnosis d);
 }
