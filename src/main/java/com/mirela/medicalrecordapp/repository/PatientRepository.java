@@ -21,4 +21,10 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     Optional<Patient> findById(Long id);
 
+    @EntityGraph(attributePaths = {
+            "user",
+            "DoctorPatientAssignment.doctor.user"
+    })
+    Optional<Patient> findByUserId(Long userId);
+
 }
