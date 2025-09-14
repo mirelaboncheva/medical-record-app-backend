@@ -2,6 +2,7 @@ package com.mirela.medicalrecordapp.mapper;
 
 import com.mirela.medicalrecordapp.dto.TreatmentDTO;
 import com.mirela.medicalrecordapp.dto.admin.TreatmentDto;
+import com.mirela.medicalrecordapp.dto.patient.MyTreatmentDto;
 import com.mirela.medicalrecordapp.model.Treatment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -28,4 +29,10 @@ public interface TreatmentMapper {
             expression = "java(t.getAppointment().getDoctor().getUser().getFirstName() + \" \" + t.getAppointment().getDoctor().getUser().getLastName())")
     @Mapping(target = "specialization", source = "appointment.doctor.specialization")
     TreatmentDto toDto(Treatment t);
+
+
+    @Mapping(target = "appointmentDate", source = "appointment.appointmentDate")
+    @Mapping(target = "doctorName", expression = "java(t.getAppointment().getDoctor().getUser().getFirstName() + \" \" + t.getAppointment().getDoctor().getUser().getLastName())")
+    @Mapping(target = "specialization", source = "appointment.doctor.specialization")
+    MyTreatmentDto toDTo(Treatment t);
 }

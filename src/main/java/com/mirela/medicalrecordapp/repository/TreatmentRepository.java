@@ -8,6 +8,15 @@ import java.util.List;
 
 public interface TreatmentRepository extends JpaRepository<Treatment, Long> {
 
-    @EntityGraph(attributePaths = {"appointment.patient.user", "appointment.doctor.user"})
+    @EntityGraph(attributePaths = {
+            "appointment.patient.user",
+            "appointment.doctor.user"
+    })
     List<Treatment> findAll();
+
+    @EntityGraph(attributePaths = {
+            "appointment.doctor.user",
+            "appointment.patient"
+    })
+    List<Treatment> findByAppointmentPatientIdOrderByAppointmentAppointmentDateDesc(Long patientId);
 }
