@@ -31,4 +31,13 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     List<Appointment> findByDoctorIdAndAppointmentDate(Long doctorId, LocalDate appointmentDate);
     List<Appointment> findByPatientIdAndAppointmentDate(Long patientId, LocalDate appointmentDate);
+
+    @EntityGraph(attributePaths = {
+            "doctor.user",
+            "patient.DoctorPatientAssignment.doctor",
+            "diagnoses",
+            "treatments",
+            "sickLeave"
+    })
+    List<Appointment> findByPatientIdOrderByAppointmentDateDesc(Long patientId);
 }

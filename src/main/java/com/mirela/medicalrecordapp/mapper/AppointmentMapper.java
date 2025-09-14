@@ -3,10 +3,10 @@ package com.mirela.medicalrecordapp.mapper;
 import com.mirela.medicalrecordapp.dto.AppointmentRequest;
 import com.mirela.medicalrecordapp.dto.AppointmentResponse;
 import com.mirela.medicalrecordapp.dto.admin.AppointmentDto;
+import com.mirela.medicalrecordapp.dto.patient.MyVisitDetailsDto;
+import com.mirela.medicalrecordapp.dto.patient.MyVisitSummaryDto;
 import com.mirela.medicalrecordapp.model.Appointment;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -44,4 +44,37 @@ public interface AppointmentMapper {
             expression = "java(a.getDoctor().getUser().getFirstName() + \" \" + a.getDoctor().getUser().getLastName())")
     @Mapping(target = "specialization", source = "doctor.specialization")
     AppointmentDto toDto(Appointment a);
+
+    @Mapping(target = "doctorName", expression = "java(a.getDoctor().getUser().getFirstName() + \" \" + a.getDoctor().getUser().getLastName())")
+    @Mapping(target = "specialization", source = "doctor.specialization")
+    @Mapping(target = "personalDoctor", ignore = true)
+    MyVisitSummaryDto toSummaryDto(Appointment a);
+
+    @Mapping(target = "doctorName", expression = "java(a.getDoctor().getUser().getFirstName() + \" \" + a.getDoctor().getUser().getLastName())")
+    @Mapping(target = "specialization", source = "doctor.specialization")
+    @Mapping(target = "personalDoctor", ignore = true)
+    @Mapping(target = "diagnoses", expression = "java(a.getDiagnoses().stream().map(d -> { var dto = new MyVisitDetailsDto.DiagnosisDto(); dto.setName(d.getName()); return dto; }).toList())")
+    @Mapping(target = "treatments", expression = "java(a.getTreatments().stream().map(t -> { var dto = new MyVisitDetailsDto.TreatmentDto(); dto.setMedicine(t.getMedicine()); dto.setDosage(t.getDosage()); dto.setDuration(t.getDuration()); dto.setDoctorNotes(t.getDoctorNotes()); return dto; }).toList())")
+    @Mapping(target = "sickLeave", expression = "java(a.getSickLeave() != null ? mapSickLeave(a) : null)")
+    MyVisitDetailsDto toDetailsDto(Appointment a);
+
+    default MyVisitDetailsDto.SickLeaveDto mapSickLeave(Appointment a) {
+        var sl = a.getSickLeave();
+        var dto = new MyVisitDetailsDto.SickLeaveDto();
+        dto.setStartDate(sl.getStartDate().toString());
+        dto.setEndDate(sl.getEndDate().toString());
+        return dto;
+    }
+
+    @AfterMapping
+    default void setPersonalDoctor(Appointment a, @MappingTarget MyVisitSummaryDto dto) {
+        var assignment = a.getPatient().getDoctorPatientAssignment();
+        dto.setPersonalDoctor(assignment != null && assignment.getDoctor().getId().equals(a.getDoctor().getId()));
+    }
+
+    @AfterMapping
+    default void setPersonalDoctorDetails(Appointment a, @MappingTarget MyVisitDetailsDto dto) {
+        var assignment = a.getPatient().getDoctorPatientAssignment();
+        dto.setPersonalDoctor(assignment != null && assignment.getDoctor().getId().equals(a.getDoctor().getId()));
+    }
 }

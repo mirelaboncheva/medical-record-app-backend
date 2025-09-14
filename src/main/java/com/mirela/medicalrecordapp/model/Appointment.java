@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -49,9 +50,9 @@ public class Appointment{
     @OneToOne(mappedBy = "appointment")
     private SickLeave sickLeave;
 
-    @OneToMany(mappedBy = "appointment")
-    private List<Diagnosis> diagnoses;
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY)
+    private Set<Diagnosis> diagnoses;
 
-    @OneToMany(mappedBy = "appointment")
-    private List<Treatment> treatments;
+    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY)
+    private Set<Treatment> treatments;
 }
