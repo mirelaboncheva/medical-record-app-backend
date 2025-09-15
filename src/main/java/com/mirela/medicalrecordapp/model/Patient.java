@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,4 +38,7 @@ public class Patient{
     @JsonIgnore
     @OneToOne(mappedBy = "patient")
     private DoctorPatientAssignment DoctorPatientAssignment;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments;
 }
