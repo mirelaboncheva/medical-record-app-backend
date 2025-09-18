@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,4 +50,24 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "sickLeave"
     })
     List<Appointment> findByDoctorIdOrderByAppointmentDateDesc(Long doctorId);
+
+    boolean existsByDoctorIdAndAppointmentDateAndAppointmentHour(Long doctorId, LocalDate date, LocalTime time);
+
+    boolean existsByPatientIdAndAppointmentDateAndAppointmentHour(Long patientId, LocalDate date, LocalTime time);
+
+
+    @Query(value = """
+    SELECT COUNT(*)
+    FROM appointment a
+    WHERE a.doctor_id = :doctorId
+      AND a.appointment_date = :date
+      AND a.appointment_hour < :endTime
+      AND (a.appointment_hour + a.duration) > :startTime
+    """, nativeQuery = true)
+    Long countOverlappingAppointments(
+            @Param("doctorId") Long doctorId,
+            @Param("date") LocalDate date,
+            @Param("startTime") LocalTime startTime,
+            @Param("endTime") LocalTime endTime);
+
 }

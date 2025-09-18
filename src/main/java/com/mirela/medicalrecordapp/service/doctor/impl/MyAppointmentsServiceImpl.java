@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -54,6 +55,23 @@ public class MyAppointmentsServiceImpl implements MyAppointmentsService {
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
         var patient = patientRepository.findById(request.getPatientId())
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        // ⚠️ Overlap check for doctor
+        LocalTime newStart = request.getAppointmentHour();
+        LocalTime newEnd = newStart.plus(request.getDuration());
+
+        List<Appointment> existingAppointments = appointmentRepository.findByDoctorIdAndAppointmentDate(
+                doctorId, request.getAppointmentDate());
+
+        boolean overlap = existingAppointments.stream().anyMatch(existing -> {
+            LocalTime existingStart = existing.getAppointmentHour();
+            LocalTime existingEnd = existingStart.plus(existing.getDuration());
+            return existingStart.isBefore(newEnd) && existingEnd.isAfter(newStart);
+        });
+
+        if (overlap) {
+            throw new IllegalArgumentException("You already have an overlapping appointment at this time.");
+        }
 
         Appointment appointment = new Appointment();
         appointment.setDoctor(doctor);

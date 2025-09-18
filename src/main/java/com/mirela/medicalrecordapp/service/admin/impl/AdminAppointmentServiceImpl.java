@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -49,6 +50,38 @@ public class AdminAppointmentServiceImpl implements AdminAppointmentService {
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
         Doctor doctor = doctorRepository.findById(dto.getDoctorId())
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
+
+        boolean doctorConflict = appointmentRepository.existsByDoctorIdAndAppointmentDateAndAppointmentHour(
+                dto.getDoctorId(), dto.getAppointmentDate(), dto.getAppointmentHour());
+
+        if (doctorConflict) {
+            throw new IllegalArgumentException("Doctor already has an appointment at this exact time.");
+        }
+
+        // 2️⃣ Check if the patient already has an appointment at this time
+        boolean patientConflict = appointmentRepository.existsByPatientIdAndAppointmentDateAndAppointmentHour(
+                dto.getPatientId(), dto.getAppointmentDate(), dto.getAppointmentHour());
+
+        if (patientConflict) {
+            throw new IllegalArgumentException("Patient already has an appointment at this exact time.");
+        }
+
+        LocalTime newStart = dto.getAppointmentHour();
+        LocalTime newEnd = newStart.plus(dto.getDuration());
+
+        List<Appointment> sameDayAppointments = appointmentRepository.findByDoctorIdAndAppointmentDate(
+                dto.getDoctorId(), dto.getAppointmentDate());
+
+        boolean overlap = sameDayAppointments.stream().anyMatch(existing -> {
+            LocalTime existingStart = existing.getAppointmentHour();
+            LocalTime existingEnd = existingStart.plus(existing.getDuration());
+
+            return existingStart.isBefore(newEnd) && existingEnd.isAfter(newStart);
+        });
+
+        if (overlap) {
+            throw new IllegalArgumentException("Doctor has an overlapping appointment at this time.");
+        }
 
         Appointment appointment = new Appointment();
         appointment.setPatient(patient);

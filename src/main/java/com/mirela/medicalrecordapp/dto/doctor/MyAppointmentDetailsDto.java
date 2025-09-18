@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class MyAppointmentDetailsDto {
+    private Long appointmentId;
     private LocalDate appointmentDate;
     private LocalTime appointmentHour;
     private Duration duration;

@@ -3,6 +3,8 @@ package com.mirela.medicalrecordapp.service.impl;
 import com.mirela.medicalrecordapp.dto.DiagnosisCountDto;
 import com.mirela.medicalrecordapp.dto.PatientBasicDto;
 import com.mirela.medicalrecordapp.dto.DoctorCountDto;
+import com.mirela.medicalrecordapp.dto.admin.AppointmentDto;
+import com.mirela.medicalrecordapp.mapper.AppointmentMapper;
 import com.mirela.medicalrecordapp.mapper.ReportMapper;
 import com.mirela.medicalrecordapp.model.Appointment;
 import com.mirela.medicalrecordapp.repository.ReportRepository;
@@ -14,12 +16,16 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+import static java.util.Arrays.stream;
+
 @Service
 @RequiredArgsConstructor
 public class ReportServiceImpl implements ReportService {
 
     private final ReportRepository repo;
     private final ReportMapper mapper;
+    private final AppointmentMapper appointmentMapper;
+
 
     @PreAuthorize("hasRole('DOCTOR') or hasRole('ADMIN')")
     public List<PatientBasicDto> patientsWithDiagnosis(String diagnosisName) {
@@ -59,18 +65,21 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @PreAuthorize("hasRole('DOCTOR') or hasRole('ADMIN')")
-    public List<Appointment> visitsByPatient(Long patientId) {
-        return repo.findVisitsByPatient(patientId);
+    public List<AppointmentDto> visitsByPatient(Long patientId) {
+        List<Appointment> entities = repo.findVisitsByPatient(patientId);
+        return appointmentMapper.toDtoList(entities);
     }
 
     @PreAuthorize("hasRole('DOCTOR') or hasRole('ADMIN')")
-    public List<Appointment> examsAllDoctorsInPeriod(LocalDate start, LocalDate end) {
-        return repo.findExamsAllDoctorsInPeriod(start, end);
+    public List<AppointmentDto> examsAllDoctorsInPeriod(LocalDate start, LocalDate end) {
+        List<Appointment> entities = repo.findExamsAllDoctorsInPeriod(start, end);
+        return appointmentMapper.toDtoList(entities);
     }
 
     @PreAuthorize("hasRole('DOCTOR') or hasRole('ADMIN')")
-    public List<Appointment> examsByDoctorInPeriod(Long doctorId, LocalDate start, LocalDate end) {
-        return repo.findExamsByDoctorInPeriod(doctorId, start, end);
+    public List<AppointmentDto> examsByDoctorInPeriod(Long doctorId, LocalDate start, LocalDate end) {
+        List<Appointment> entities = repo.findExamsByDoctorInPeriod(doctorId, start, end);
+        return appointmentMapper.toDtoList(entities);
     }
 
     @PreAuthorize("hasRole('DOCTOR') or hasRole('ADMIN')")

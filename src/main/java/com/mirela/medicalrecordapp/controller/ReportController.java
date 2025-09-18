@@ -3,6 +3,7 @@ package com.mirela.medicalrecordapp.controller;
 import com.mirela.medicalrecordapp.dto.DiagnosisCountDto;
 import com.mirela.medicalrecordapp.dto.PatientBasicDto;
 import com.mirela.medicalrecordapp.dto.DoctorCountDto;
+import com.mirela.medicalrecordapp.dto.admin.AppointmentDto;
 import com.mirela.medicalrecordapp.model.Appointment;
 import com.mirela.medicalrecordapp.service.ReportService;
 import lombok.RequiredArgsConstructor;
@@ -47,19 +48,19 @@ public class ReportController {
     }
 
     @GetMapping("/visits-by-patient/{patientId}")
-    public List<Appointment> visitsByPatient(@PathVariable Long patientId) {
+    public List<AppointmentDto> visitsByPatient(@PathVariable Long patientId) {
         return service.visitsByPatient(patientId);
     }
 
     @GetMapping("/exams-all-doctors")
-    public List<Appointment> examsAllDoctorsInPeriod(
+    public List<AppointmentDto> examsAllDoctorsInPeriod(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         return service.examsAllDoctorsInPeriod(start, end);
     }
 
     @GetMapping("/exams-by-doctor/{doctorId}")
-    public List<Appointment> examsByDoctorInPeriod(
+    public List<AppointmentDto> examsByDoctorInPeriod(
             @PathVariable Long doctorId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {

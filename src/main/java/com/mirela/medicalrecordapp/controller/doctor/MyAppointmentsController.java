@@ -8,9 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -26,9 +23,9 @@ public class MyAppointmentsController {
         return service.getMyAppointments();
     }
 
-    @GetMapping("/{id}")
-    public MyAppointmentDetailsDto getAppointmentDetails(@PathVariable Long id) {
-        return service.getMyAppointmentDetails(id);
+    @GetMapping("/{appointmentId}/details")
+    public MyAppointmentDetailsDto getAppointmentDetails(@PathVariable Long appointmentId) {
+        return service.getMyAppointmentDetails(appointmentId);
     }
 
     @PostMapping

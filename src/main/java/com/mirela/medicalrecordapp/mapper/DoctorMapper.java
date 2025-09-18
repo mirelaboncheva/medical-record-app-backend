@@ -42,11 +42,13 @@ public interface DoctorMapper {
     @Mapping(target = "phoneNumber", source = "user.phoneNumber")
     DoctorProfileDto toDto(Doctor doctor);
 
+    @Mapping(target = "appointmentId", source = "id")
     @Mapping(target = "patientName", expression = "java(a.getPatient().getUser().getFirstName() + \" \" + a.getPatient().getUser().getLastName())")
     @Mapping(target = "nationalId", source = "patient.nationalId")
     @Mapping(target = "personalPatient", ignore = true)
     MyAppointmentSummaryDto toSummaryDto(Appointment a);
 
+    @Mapping(target = "appointmentId", source = "id")
     @Mapping(target = "patientName", expression = "java(a.getPatient().getUser().getFirstName() + \" \" + a.getPatient().getUser().getLastName())")
     @Mapping(target = "nationalId", source = "patient.nationalId")
     @Mapping(target = "personalPatient", ignore = true)

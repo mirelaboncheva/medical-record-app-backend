@@ -7,6 +7,7 @@ import java.time.Duration;
 
 @Data
 public class MyVisitSummaryDto {
+    private Long appointmentId;
     private LocalDate appointmentDate;
     private LocalTime appointmentHour;
     private Duration duration;

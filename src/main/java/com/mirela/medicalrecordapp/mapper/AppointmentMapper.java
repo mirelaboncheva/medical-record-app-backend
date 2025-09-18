@@ -45,11 +45,15 @@ public interface AppointmentMapper {
     @Mapping(target = "specialization", source = "doctor.specialization")
     AppointmentDto toDto(Appointment a);
 
+    List<AppointmentDto> toDtoList(List<Appointment> appointments);
+
+    @Mapping(target = "appointmentId", source = "id")
     @Mapping(target = "doctorName", expression = "java(a.getDoctor().getUser().getFirstName() + \" \" + a.getDoctor().getUser().getLastName())")
     @Mapping(target = "specialization", source = "doctor.specialization")
     @Mapping(target = "personalDoctor", ignore = true)
     MyVisitSummaryDto toSummaryDto(Appointment a);
 
+    @Mapping(target = "appointmentId", source = "id")
     @Mapping(target = "doctorName", expression = "java(a.getDoctor().getUser().getFirstName() + \" \" + a.getDoctor().getUser().getLastName())")
     @Mapping(target = "specialization", source = "doctor.specialization")
     @Mapping(target = "personalDoctor", ignore = true)

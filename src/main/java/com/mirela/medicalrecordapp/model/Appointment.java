@@ -1,5 +1,6 @@
 package com.mirela.medicalrecordapp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mirela.medicalrecordapp.model.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +18,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "appointment")
+@Table(name = "appointment", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"doctor", "appointmentDate", "appointmentHour"})
+})
 public class Appointment{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,12 +50,27 @@ public class Appointment{
     @NotNull
     private Status status;
 
-    @OneToOne(mappedBy = "appointment")
+    @OneToOne(
+            mappedBy = "appointment",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private SickLeave sickLeave;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "appointment",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
     private Set<Diagnosis> diagnoses;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY)
+    @OneToMany(
+            mappedBy = "appointment",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @JsonManagedReference
     private Set<Treatment> treatments;
 }

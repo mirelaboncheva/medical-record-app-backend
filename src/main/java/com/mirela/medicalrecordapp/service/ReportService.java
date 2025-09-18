@@ -3,6 +3,7 @@ package com.mirela.medicalrecordapp.service;
 import com.mirela.medicalrecordapp.dto.DiagnosisCountDto;
 import com.mirela.medicalrecordapp.dto.DoctorCountDto;
 import com.mirela.medicalrecordapp.dto.PatientBasicDto;
+import com.mirela.medicalrecordapp.dto.admin.AppointmentDto;
 import com.mirela.medicalrecordapp.model.Appointment;
 
 import java.time.LocalDate;
@@ -15,9 +16,9 @@ public interface ReportService {
     List<PatientBasicDto> patientsByPersonalDoctor(Long doctorId);
     List<DoctorCountDto> patientCountPerDoctor();
     List<DoctorCountDto> visitCountPerDoctor();
-    List<Appointment> visitsByPatient(Long patientId);
-    List<Appointment> examsAllDoctorsInPeriod(LocalDate start, LocalDate end);
-    List<Appointment> examsByDoctorInPeriod(Long doctorId, LocalDate start, LocalDate end);
+    List<AppointmentDto> visitsByPatient(Long patientId);
+    List<AppointmentDto> examsAllDoctorsInPeriod(LocalDate start, LocalDate end);
+    List<AppointmentDto> examsByDoctorInPeriod(Long doctorId, LocalDate start, LocalDate end);
     String monthWithMostSickLeaves();
     List<String> doctorWithMostSickLeaves();
 }

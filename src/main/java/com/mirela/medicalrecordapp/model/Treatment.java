@@ -24,6 +24,6 @@ public class Treatment{
     private String doctorNotes;
 
     @ManyToOne
-    @JoinColumn(name = "appointment_id") //nullable = false)
+    @JoinColumn(name = "appointment_id")
     private Appointment appointment;
 }
