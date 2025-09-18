@@ -69,7 +69,8 @@ public class ApplicationConfig {
                 "POST",
                 "DELETE",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                "OPTIONS"
         ));
 
         source.registerCorsConfiguration("/**", config);

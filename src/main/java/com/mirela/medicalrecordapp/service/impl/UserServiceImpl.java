@@ -6,8 +6,11 @@ import com.mirela.medicalrecordapp.dto.UserRequest;
 import com.mirela.medicalrecordapp.dto.UserResponse;
 import com.mirela.medicalrecordapp.mapper.UserMapper;
 import com.mirela.medicalrecordapp.model.User;
+import com.mirela.medicalrecordapp.repository.DoctorRepository;
+import com.mirela.medicalrecordapp.repository.PatientRepository;
 import com.mirela.medicalrecordapp.repository.UserRepository;
 import com.mirela.medicalrecordapp.service.UserService;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
+    private final DoctorRepository doctorRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
@@ -70,9 +75,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUser(Long id) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
+            doctorRepository.deleteByUserId(id);
+            patientRepository.deleteByUserId(id);
             userRepository.deleteById(id);
         }
     }

@@ -1,6 +1,7 @@
 package com.mirela.medicalrecordapp.auth;
 
 import com.mirela.medicalrecordapp.service.AuthenticationService;
+import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ public class RegistrationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
+    @PermitAll
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest) {
         System.out.println("Received RegisterRequest: " + registerRequest);
         try {
@@ -28,6 +30,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/doctor")
+    @PermitAll
     public ResponseEntity<AuthenticationResponse> registerDoctor(@RequestBody DoctorRegisterRequest doctorRegisterRequest) {
         System.out.println("Received RegisterRequest: " + doctorRegisterRequest);
         try {
@@ -39,6 +42,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/authenticate")
+    @PermitAll
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
